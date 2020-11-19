@@ -12,8 +12,8 @@
 .user-popup {
   position: relative;
   width: 40%;
-  height: 50%;
-  background-color: #eedaaf;
+  height: auto;
+  background-color: #9eaa9d;
   display: flex;
   flex-direction: column;
   justify-content: start;

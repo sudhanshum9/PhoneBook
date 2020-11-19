@@ -2,40 +2,47 @@ import "./App.css";
 
 import CreateUser from "./CreateUser";
 import Users from "./Users";
-import Searchbox from './Searchbox'
+import Searchbox from "./Searchbox";
 
 import React, { Component } from "react";
-import { Button } from '@material-ui/core'
-
+import { Button } from "@material-ui/core";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
       users: [],
-      showPopup: false,
-      seachField: ''
-    };
-   ;
+      userAction: null,
+      seachField: "",
 
+      currentUser: {
+        firstName: "",
+        lastName: "",
+        PhoneNo: "",
+        email: "",
+        birthday: "",
+      },
+    };
   }
 
   componentDidMount() {
-    this.updateUsersFromDB()
+    this.updateUsersFromDB();
   }
 
-  showUserPopup = (flag, updateUser = null) => {
+  setUserAction = (flag, currentUser) => {
     this.setState({
-      showPopup: flag
-    })
-  }
+      userAction: flag,
+      currentUser: currentUser,
+    });
+    // console.log('setUserAction currentUser: ', currentUser)
+  };
+
   updateUsersFromDB = () => {
     let users = this.getUsers();
     this.setState({ users });
   };
 
   addUser = (firstName, lastName, PhoneNo, email, birthday) => {
-    console.log(this.state.users);
     let users = this.getUsers();
     users = [
       ...users,
@@ -59,41 +66,37 @@ class App extends Component {
     });
     this.setUsers(users);
     this.setState({ users: this.getUsers() });
-  }
+  };
 
-  updateSingleUser = (userId,e) => {
-    const index = this.state.users.findIndex((user) => {
-      return user.id === userId
-    })
-    const user = Object.assign({},this.state.users[index])
+  updateSingleUser = (
+    userId,
+    firstName,
+    lastName,
+    PhoneNo,
+    email,
+    birthday
+  ) => {
+    let users = this.getUsers();
 
-    user.firstName = e.target.value.firstName
-    user.lastName = e.target.value.lastName
-    user.PhoneNo = e.target.value.PhoneNo
-    user.email = e.target.value.email
-    user.birthday = e.target.value.birthday
+    const userIndex = users.findIndex((user) => {
+      return user.id === userId;
+    });
 
-    const users = Object.assign([],this.state.users)
+    users[userIndex] = { firstName, lastName, PhoneNo, email, birthday };
 
-    users[index] =user;
+    this.setUsers(users);
 
-    this.setState({users : users})
-
-    
-  }
+    this.setState({ users: users });
+  };
 
   setUsers = (users) => {
     window.localStorage.setItem("users", JSON.stringify(users));
   };
 
   getUsers = () => {
-    console.log(window.localStorage.getItem("users"))
     if (window.localStorage.getItem("users")) {
-
       let x = JSON.parse(window.localStorage.getItem("users"));
-      console.log(' value of x ===', x)
-      return x
-
+      return x;
     } else {
       return [];
     }
@@ -104,24 +107,42 @@ class App extends Component {
   };
 
   render() {
-    const { showCreateUser } = this.state;
-
-    const {users,seachField } = this.state;
-    const filteredUsers = users.filter( user => user.firstName.toLowerCase().includes(seachField.toLowerCase()) )
+    const { users, seachField } = this.state;
+    const filteredUsers = users.filter((user) =>
+      user.firstName.toLowerCase().includes(seachField.toLowerCase())
+    );
     return (
       <div className="App">
-      
-      
-      <CreateUser   addUser={this.addUser} showUserPopup={this.showUserPopup} showPopup={this.state.showPopup} />
-        < Button variant='outlined' className="add-user" onClick={() => {
-          this.showUserPopup(true);
-         
-          // props.updateSingleUser(user.id)
-        }}>Add user</Button>
-        
-        
-        <Searchbox  placeholder='Search Users' handleChange= {e => this.setState({ seachField : e.target.value })} />
-        <Users users={filteredUsers} deleteSingleUser={this.deleteSingleUser} updateSingleUser={this.updateSingleUser} showUserPopup={this.showUserPopup} />
+      <style>{'body { background-color: #c1c1c1; }'}</style>
+        <CreateUser
+          addUser={this.addUser}
+          setUserAction={this.setUserAction}
+          userAction={this.state.userAction}
+          updateSingleUser={this.updateSingleUser}
+          currentUser={this.state.currentUser}
+        />
+        <div className="adduser">
+        <Button
+          variant="outlined"
+          
+          onClick={() => {
+            this.setUserAction("Add User", null);
+            // props.updateSingleUser(user.id)
+          }}
+        >
+          Add User
+        </Button>
+        </div>
+
+        <Searchbox
+          placeholder="Search Users"
+          handleChange={(e) => this.setState({ seachField: e.target.value })}
+        />
+        <Users
+          users={filteredUsers}
+          deleteSingleUser={this.deleteSingleUser}
+          setUserAction={this.setUserAction}
+        />
       </div>
     );
   }

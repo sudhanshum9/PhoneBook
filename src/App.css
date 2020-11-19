@@ -1,4 +1,16 @@
 .App {
   text-align: center;
+  
+}
+.adduser{
+  padding: 10px 23px;
+  background-color: #c1c1c1;
+  position: inherit;
 }
 
+.adduser > Button{
+  padding: 5px 10px;
+  background-color: #aacfee;
+ 
+  font-size: 15px;
+}
