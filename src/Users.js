@@ -1,5 +1,5 @@
-import React, {useState} from 'react'
-import CreateUser from './CreateUser';
+import React from 'react'
+
 import { Button } from '@material-ui/core'
 import './Users.css'
 function Users(props) {
