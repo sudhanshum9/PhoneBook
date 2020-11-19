@@ -1,0 +1,61 @@
+.user-popup-container {
+  position: fixed;
+
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0,0.5);
+}
+
+.user-popup {
+  position: relative;
+  width: 40%;
+  height: 50%;
+  background-color: #eedaaf;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+
+.user-popup > Button {
+  width: 40%;
+  display: inherit;
+  align-items: inherit;
+  justify-content: inherit;
+  padding: 15px 32px;
+  
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 10px 2px;
+  cursor: pointer;
+}
+
+.user-popup > label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+.user-popup > input {
+  width: 50%;
+  padding: 12px;
+  border: 1px solid rgb(117, 30, 30);
+  border-radius: 10px;
+  resize: vertical;
+}
+
+.close-update-popup {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+}
+
+.addbutton{
+  padding: 10px 10px 10px 10px;
+  
+
+}
