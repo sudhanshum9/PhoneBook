@@ -11,7 +11,8 @@ class App extends Component {
     super();
     this.state = {
       users: [],
-      showPopup: false
+      showPopup: false,
+      seachField: ''
     };
   }
   componentDidMount() {
@@ -88,11 +89,15 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+
+
         <CreateUser addUser={this.addUser} showUserPopup={this.showUserPopup} showPopup={this.state.showPopup} />
         < Button variant='outlined' className="add-user" onClick={() => {
           this.showUserPopup(true);
           // props.updateSingleUser(user.id)
         }}>Add user</Button>
+
+        <input type='search' placeholder='Search Users' onChange = { e => console.log(e.target.value) } />
         <Users users={this.state.users} deleteSingleUser={this.deleteSingleUser} updateSingleUser={this.updateSingleUser} showUserPopup={this.showUserPopup} />
       </div>
     );
