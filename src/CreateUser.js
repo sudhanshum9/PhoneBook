@@ -5,7 +5,7 @@ import "./CreateUser.css";
 
 function CreateUser(props) {
   console.log("CreateUser props: ", props);
-
+  // defining the state of input fields
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [PhoneNo, setPhoneNo] = useState("");
@@ -28,6 +28,7 @@ function CreateUser(props) {
     }
   }, [props.currentUser]);
 
+  // If condition to check the userAction 'Check for new user'
   if (props.userAction !== null) {
     return (
       <div className="user-popup-container">
@@ -93,6 +94,7 @@ function CreateUser(props) {
               setBirthday(e.target.value);
             }}
           />
+          {/* Logic for changing the Submit Button Func based on userAction */}
           <div className="addbutton">
             <Button
               variant="outlined"

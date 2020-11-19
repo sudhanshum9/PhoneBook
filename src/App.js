@@ -26,9 +26,10 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.updateUsersFromDB();
+    this.updateUsersFromDB(); //used to give data from local db
   }
 
+// setUserAction is used to define the user action and the current user on which the changes are taking place
   setUserAction = (flag, currentUser) => {
     this.setState({
       userAction: flag,
@@ -36,12 +37,12 @@ class App extends Component {
     });
     // console.log('setUserAction currentUser: ', currentUser)
   };
-
+// updateUsersFromDB is used to add new users to the LS
   updateUsersFromDB = () => {
     let users = this.getUsers();
     this.setState({ users });
   };
-
+  // addUser is the func resp. for creating the new user and storing it in ls
   addUser = (firstName, lastName, PhoneNo, email, birthday) => {
     let users = this.getUsers();
     users = [
@@ -58,7 +59,7 @@ class App extends Component {
     this.setUsers(users);
     this.setState({ users: this.getUsers() });
   };
-
+// deleteSingleUser used to delete a user permanetly
   deleteSingleUser = (userId) => {
     let users = this.getUsers();
     users = users.filter((item) => {
@@ -67,7 +68,7 @@ class App extends Component {
     this.setUsers(users);
     this.setState({ users: this.getUsers() });
   };
-
+// updateSingleUser is used to update the predifined user
   updateSingleUser = (
     userId,
     firstName,
@@ -88,11 +89,11 @@ class App extends Component {
 
     this.setState({ users: users });
   };
-
+  // setUsers used to save the data to ls
   setUsers = (users) => {
     window.localStorage.setItem("users", JSON.stringify(users));
   };
-
+// getUsers gives the users list from the Ls
   getUsers = () => {
     if (window.localStorage.getItem("users")) {
       let x = JSON.parse(window.localStorage.getItem("users"));
@@ -102,9 +103,7 @@ class App extends Component {
     }
   };
 
-  deleteUsers = () => {
-    window.localStorage.removeItem("users");
-  };
+ 
 
   render() {
     const { users, seachField } = this.state;
